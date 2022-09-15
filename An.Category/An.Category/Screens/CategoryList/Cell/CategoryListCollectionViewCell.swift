@@ -12,6 +12,16 @@ class CategoryListCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Views
     
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    
     private lazy var categoryImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
@@ -29,7 +39,7 @@ class CategoryListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    //var cellViewModel: MovieListCollectionCellViewModelProtocol?
+    var cellViewModel: CategoryListCollectionCellViewModelProtocol?
     
     enum Identifier: String {
         case path = "Cell"
@@ -45,20 +55,26 @@ class CategoryListCollectionViewCell: UICollectionViewCell {
     }
     
     private func configure() {
-        contentView.addSubview(categoryImage)
-        contentView.addSubview(categoryName)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(categoryImage)
+        stackView.addArrangedSubview(categoryName)
+        
         
         contentView.backgroundColor = .white
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 8
         
+        configureConstraints()
+    }
+    
+    private func configureConstraints() {
         makeImage()
-        makeName()
+        makeVStack()
     }
     
     private func propertyUI(item: CategoryList) {
-        categoryName.text = item.name
+        categoryName.text = cellViewModel?.getName(item: item)
         
         if let imageName = item.icon {
             if let url = URL(string: imageName){
@@ -66,7 +82,6 @@ class CategoryListCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
     
     func saveModel(item: CategoryList) {
         propertyUI(item: item)
@@ -76,38 +91,20 @@ class CategoryListCollectionViewCell: UICollectionViewCell {
 //MARK: - Constraints
 
 extension CategoryListCollectionViewCell {
-    private func makeImage() {
-        categoryImage.snp.makeConstraints { make in
-            make
-                .left
-                .equalTo(contentView)
-                .offset(8)
-            make
-                .centerY
-                .equalTo(contentView.snp.centerY)
-            make
-                .height
-                .equalTo(contentView.frame.size.height / 2)
-            make
-                .width
-                .equalTo(contentView.frame.size.width )
+    private func makeVStack() {
+        stackView.snp.makeConstraints { make in
+            make.right.left.top.bottom.equalTo(contentView)
         }
     }
     
-    private func makeName() {
-        categoryName.snp.makeConstraints { make in
+    private func makeImage() {
+        categoryImage.snp.makeConstraints { make in
             make
-                .top
-                .equalTo(categoryImage.snp.bottom)
-                .offset(16)
+                .height
+                .equalTo(contentView.frame.size.height / 1.5)
             make
-                .left
-                .equalTo(contentView)
-                .offset(16)
-            make
-                .right
-                .equalTo(contentView.snp.right)
-                .offset(-16)
+                .width
+                .equalTo(contentView.frame.size.width)
         }
     }
 }

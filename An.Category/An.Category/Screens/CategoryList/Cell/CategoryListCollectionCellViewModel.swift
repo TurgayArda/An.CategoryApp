@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+protocol CategoryListCollectionCellViewModelProtocol {
+    func getName(item: CategoryList) -> String
+}
+
+class CategoryListCollectionCellViewModel: CategoryListCollectionCellViewModelProtocol {
+    func getName(item: CategoryList) -> String {
+        guard let name = item.name else {
+            return CategoryListConstant.CategoryListConstant.unknow.rawValue
+        }
+        
+        return name
+    }
+
+}

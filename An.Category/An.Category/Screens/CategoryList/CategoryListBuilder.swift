@@ -10,7 +10,8 @@ import Foundation
 final class CategoryListBuilder {
     static func make() -> CategoryListVC {
         let view = CategoryListVC()
-        //view.movieListViewModel = MovieListViewModel(httpClient: HttpClient())
+        let viewModel = CategoryListViewModel(service: HttpClient())
+        view.categoryListViewModel = viewModel
         return view
     }
 }

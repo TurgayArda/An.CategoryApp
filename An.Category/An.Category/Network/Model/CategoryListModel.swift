@@ -7,14 +7,14 @@
 
 import Foundation
 
-// MARK: - CategoryListResult
+//MARK: - CategoryListResult
 
 struct CategoryListResult: Codable {
     let success: Bool?
     let data: [CategoryList]?
 }
 
-// MARK: - CategoryList
+//MARK: - CategoryList
 
 struct CategoryList: Codable {
     let categoryID, name: String?
@@ -23,7 +23,7 @@ struct CategoryList: Codable {
     let createDate, updateDate: String?
     let totalProducts: Int?
     let isActive: Bool?
-
+    
     enum CodingKeys: String, CodingKey {
         case categoryID = "categoryId"
         case name, icon, orderIndex, createDate, updateDate, totalProducts, isActive

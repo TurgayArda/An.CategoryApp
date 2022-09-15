@@ -10,7 +10,7 @@ import UIKit
 //MARK: - ViewModel
 
 protocol CategoryListViewModelProtocol {
-    var delegate:CategoryListViewModelDelegate? { get set }
+    var delegate: CategoryListViewModelDelegate? { get set }
     func load()
 }
 
@@ -32,14 +32,13 @@ protocol CategoryListProviderProtocol {
 }
 
 enum CategoryListProviderOutPut {
-    case selectCategoryItem(String)
+    case selectCategoryItem(Int)
     case title(String)
     case error(String)
 }
 
 protocol CategoryListProviderDelegate {
-    func selected(at select: Any)
-    func getWidth() -> CGFloat
+    func selected(at select: String)
 }
 
 

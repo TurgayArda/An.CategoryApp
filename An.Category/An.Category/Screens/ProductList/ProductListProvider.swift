@@ -1,35 +1,35 @@
 //
-//  CategoryListProvider.swift
+//  ProductListProvider.swift
 //  An.Category
 //
-//  Created by Arda Sisli on 13.09.2022.
+//  Created by Arda Sisli on 14.09.2022.
 //
 
 import UIKit
 
-class CategoryListProvider: NSObject {
-    var delegate: CategoryListProviderDelegate?
-    var  categoryItem: [CategoryList] = []
+class  ProductListProvider: NSObject {
+    var delegate:  ProductListProviderDelegate?
+    var productItem: [ProductList] = []
 }
 
-extension CategoryListProvider: CategoryListProviderProtocol {
-    func loadCategoryList(item: [CategoryList]) {
-        self.categoryItem = item
+extension ProductListProvider: ProductListProviderProtocol {
+    func loadProductList(item: [ProductList]) {
+        self.productItem = item
     }
 }
 
-extension CategoryListProvider: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ProductListProvider: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoryItem.count
+        return productItem.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryListCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? CategoryListCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? ProductListCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.cellViewModel = CategoryListCollectionCellViewModel()
+        cell.cellViewModel = ProductListCollectionCellViewModel()
         
-        cell.saveModel(item: categoryItem[indexPath.row])
+        cell.saveModel(item: productItem[indexPath.row])
         
         
         return cell
@@ -49,8 +49,8 @@ extension CategoryListProvider: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let routerData = categoryItem[indexPath.row]
-        guard let id = routerData.categoryID else { return }
+        let routerData = productItem[indexPath.row]
+        guard let id = routerData.id else { return }
         delegate?.selected(at: id)
         
     }
