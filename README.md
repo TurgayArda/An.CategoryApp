@@ -2,8 +2,8 @@
 
 ## MVVMM 
 
-- Delegate
 - Protocol
+- Delegate
 - Enum
 - CollectionView
 - StackView
